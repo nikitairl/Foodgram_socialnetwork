@@ -1,8 +1,7 @@
+import sys
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer
-from ..recipes.models import (
-    Subscribe
-)
+sys.path.append('.')
 from ..users.models import User
 
 
@@ -42,3 +41,5 @@ class UserSerializer():
         result = super(UserSerializer, self).to_representation(obj)
         result.pop('password', None)
         return result
+
+
