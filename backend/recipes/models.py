@@ -93,9 +93,6 @@ class Recipe(models.Model):
     def __str__(self):
         return self.name
 
-# ТЕСТОВЫЙ БЛОК ДАЛЬШЕ
-
-
 class Subscribe(models.Model):
     user = models.ForeignKey(
         User,
