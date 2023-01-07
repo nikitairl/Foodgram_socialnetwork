@@ -16,7 +16,10 @@ class Ingredient(models.Model):
         verbose_name='Количество',
         help_text='Количество ингридиента',
     )
-
+    
+    class Meta:
+        verbose_name = 'Ингридиент'
+        verbose_name_plural = 'Ингридиенты'
 
 class Tag(models.Model):
     tagname = models.CharField(
@@ -38,6 +41,7 @@ class Tag(models.Model):
 
     class Meta:
         verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
 
     def __str__(self):
         return self.slug
@@ -91,7 +95,7 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
 
     def __str__(self):
-        return self.name
+        return self.recipename
 
 class Subscribe(models.Model):
     user = models.ForeignKey(
