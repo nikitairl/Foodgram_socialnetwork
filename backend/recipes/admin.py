@@ -47,6 +47,7 @@ class IngredientAdmin(admin.ModelAdmin):
     """
     list_display = ('ingredientname', 'amount')
     search_fields = ('ingredientname', )
+    verbose_name = 'Ингридиент'
     empty_value_display = '-пусто-'
     list_filter = ('ingredientname',)
 
