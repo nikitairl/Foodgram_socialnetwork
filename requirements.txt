@@ -6,3 +6,5 @@ django-filter==22.1
 djoser==2.1.0
 django-extra-fields==0.3
 reportlab==3.6.12
+djangorestframework_simplejwt==5.2.2
+social-auth-app-django==5.0.0

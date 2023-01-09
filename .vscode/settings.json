@@ -1,6 +1,9 @@
 {
     "Codegeex.EnableExtension": false,
     "cSpell.words": [
-        "ingredientname"
+        "authtoken",
+        "djoser",
+        "ingredientname",
+        "ingredientrecipes"
     ]
 }
