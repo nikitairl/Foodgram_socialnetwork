@@ -51,7 +51,7 @@ class Recipe(models.Model):
     recipename = models.CharField(
         max_length=200,
         verbose_name='Название',
-        help_text='Введите навзание рецепта',
+        help_text='Введите название рецепта',
     )
     author = models.ForeignKey(
         User,
@@ -71,7 +71,7 @@ class Recipe(models.Model):
     )
     image = models.ImageField(
         upload_to='recipes/image',
-        help_text='Загрузите лучшше изображение вашего блюда',
+        help_text='Загрузите лучшее изображение вашего блюда',
     )
     tags = models.ManyToManyField(
         Tag,
@@ -110,7 +110,7 @@ class Subscribe(models.Model):
         on_delete=models.CASCADE,
         related_name='following',
         verbose_name='Автор',
-        help_text='Автор - тот накого осуществляется подписка'
+        help_text='Автор - тот на кого осуществляется подписка'
     )
 
     class Meta:

@@ -22,7 +22,7 @@ urlpatterns = [
          DownloadCart.as_view({'get': 'download'}), name='download'),
     path('users/<users_id>/subscribe/',
          UserSubscribeViewSet.as_view({'post': 'create',
-                                   'delete': 'delete'}), name='subscribe'),
+                                       'delete': 'delete'}), name='subscribe'),
     path('recipes/<recipes_id>/favorite/',
          FavoriteViewSet.as_view({'post': 'create',
                                   'delete': 'delete'}), name='favorite'),
@@ -30,5 +30,6 @@ urlpatterns = [
          CartViewSet.as_view({'post': 'create',
                               'delete': 'delete'}), name='cart'),
     path('', include(router.urls)),
+    path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 ]

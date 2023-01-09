@@ -9,7 +9,7 @@ from users.models import User
 
 class CommonSubscribed(metaclass=serializers.SerializerMetaclass):
     """
-    Класс для опредения подписки пользователя на автора.
+    Класс для определения подписки пользователя на автора.
     """
     is_subscribed = serializers.SerializerMethodField()
 
@@ -69,9 +69,6 @@ class CommonCount(metaclass=serializers.SerializerMetaclass):
     recipes_count = serializers.SerializerMethodField()
 
     def get_recipes_count(self, obj):
-        """
-        Метод подсчета количества рецептов автора.
-        """
         return Recipe.objects.filter(author__id=obj.id).count()
 
 
@@ -91,9 +88,6 @@ class RegistrationSerializer(UserCreateSerializer, CommonSubscribed):
         extra_kwargs = {'is_subscribed': {'required': False}}
 
     def to_representation(self, obj):
-        """
-        Метод представления результатов сериализатора.
-        """
         result = super(RegistrationSerializer, self).to_representation(obj)
         result.pop('password', None)
         return result
@@ -104,9 +98,6 @@ class IngredientSerializer(serializers.ModelSerializer):
     Создание сериализатора модели продуктов.
     """
     class Meta:
-        """
-        Мета параметры сериализатора модели продуктов.
-        """
         model = Ingredient
         fields = ('id', 'name', 'measurement_unit')
         extra_kwargs = {'name': {'required': False},
@@ -124,9 +115,6 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        """
-        Мета параметры сериализатора модели продуктов в рецепте.
-        """
         model = IngredientRecipe
         fields = ('id', 'name', 'measurement_unit', 'amount')
 
@@ -150,9 +138,6 @@ class TagSerializer(serializers.ModelSerializer):
     Создание сериализатора модели тегов.
     """
     class Meta:
-        """
-        Мета параметры сериализатора модели тегов.
-        """
         model = Tag
         fields = '__all__'
         extra_kwargs = {'name': {'required': False},
@@ -193,9 +178,6 @@ class RecipeSerializer(serializers.ModelSerializer,
     is_in_shopping_cart = serializers.SerializerMethodField()
 
     class Meta:
-        """
-        Мета параметры сериализатора модели рецептов.
-        """
         model = Recipe
         fields = ('id', 'author', 'name', 'image', 'text',
                   'ingredients', 'tags', 'cooking_time',
@@ -233,15 +215,15 @@ class RecipeSerializerPost(serializers.ModelSerializer,
         for ingredient in ingredients:
             if ingredient['amount'] < 1:
                 raise serializers.ValidationError(
-                    'Количество должно быть равным или больше 1!')
+                    'Количество не может быть меньше чем 1.')
             id_to_check = ingredient['ingredient']['id']
             ingredient_to_check = Ingredient.objects.filter(id=id_to_check)
             if not ingredient_to_check.exists():
                 raise serializers.ValidationError(
-                    'Данного продукта нет в базе!')
+                    'Ингридиента нет в базе!')
             if ingredient_to_check in ingredients_list:
                 raise serializers.ValidationError(
-                    'Данные продукты повторяются в рецепте!')
+                    'Нельзя повторять ингридиенты')
             ingredients_list.append(ingredient_to_check)
         return value
 
@@ -311,10 +293,6 @@ class RecipeMinifieldSerializer(serializers.ModelSerializer):
     Сериализатор для упрощенного отображения модели рецептов.
     """
     class Meta:
-        """
-        Мета параметры сериализатора упрощенного
-        отображения модели рецептов.
-        """
         model = Recipe
         fields = ('id', 'name', 'cooking_time', 'image')
 
