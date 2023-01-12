@@ -75,15 +75,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, ]
 
     def perform_create(self, serializer):
-        """
-        Метод подстановки параметров автора при создании рецепта.
-        """
         serializer.save(author=self.request.user)
 
     def get_serializer_class(self):
-        """
-        Метод выбора сериализатора в зависимости от запроса.
-        """
         if self.request.method == 'GET':
             return RecipeSerializer
         else:
@@ -109,9 +103,6 @@ class BaseFavoriteCartViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        """
-        Метод создания модели корзины или избранных рецептов.
-        """
         recipe_id = int(self.kwargs['recipes_id'])
         recipe = get_object_or_404(Recipe, id=recipe_id)
         self.model.objects.create(
@@ -119,9 +110,6 @@ class BaseFavoriteCartViewSet(viewsets.ModelViewSet):
         return Response(HTTPStatus.CREATED)
 
     def delete(self, request, *args, **kwargs):
-        """
-        Метод удаления объектов модели корзины или избранных рецептов.
-        """
         recipe_id = self.kwargs['recipes_id']
         user_id = request.user.id
         object = get_object_or_404(
@@ -131,18 +119,12 @@ class BaseFavoriteCartViewSet(viewsets.ModelViewSet):
 
 
 class CartViewSet(BaseFavoriteCartViewSet):
-    """
-    Вьюсет обработки модели корзины.
-    """
     serializer_class = CartSerializer
     queryset = Cart.objects.all()
     model = Cart
 
 
 class FavoriteViewSet(BaseFavoriteCartViewSet):
-    """
-    Вьюсет обработки модели избранных рецептов.
-    """
     serializer_class = FavoriteSerializer
     queryset = Favorite.objects.all()
     model = Favorite
@@ -156,9 +138,6 @@ class DownloadCart(viewsets.ModelViewSet):
 
     @staticmethod
     def canvas_method(dictionary):
-        """
-        Метод сохранения списка покупок в формате PDF.
-        """
         response = HttpResponse(content_type='application/pdf')
         response[
             'Content-Disposition'] = 'attachment; \
@@ -190,9 +169,6 @@ class DownloadCart(viewsets.ModelViewSet):
         return response
 
     def download(self, request):
-        """
-        Метод создания списка покупок.
-        """
         result = IngredientRecipe.objects.filter(
             recipe__carts__user=request.user).values(
             'ingredient__name', 'ingredient__measurement_unit').order_by(

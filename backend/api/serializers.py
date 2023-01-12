@@ -9,14 +9,11 @@ from users.models import User
 
 class CommonSubscribed(metaclass=serializers.SerializerMetaclass):
     """
-    Класс для определения подписки пользователя на автора.
+    Класс для определения подписки пользоватей на авторов рецептов.
     """
     is_subscribed = serializers.SerializerMethodField()
 
-    def get_is_subscribed(self, obj):
-        """
-        Метод обработки параметра is_subscribed подписок.
-        """
+    def get_is_subscribed(self, obj) -> bool:
         request = self.context.get('request')
         if request.user.is_anonymous:
             return False
@@ -35,10 +32,7 @@ class CommonRecipe(metaclass=serializers.SerializerMetaclass):
     is_favorited = serializers.SerializerMethodField()
     is_in_shopping_cart = serializers.SerializerMethodField()
 
-    def get_is_favorited(self, obj):
-        """
-        Метод обработки параметра is_favorited избранного.
-        """
+    def get_is_favorited(self, obj) -> bool:
         request = self.context.get('request')
         if request.user.is_anonymous:
             return False
@@ -48,10 +42,7 @@ class CommonRecipe(metaclass=serializers.SerializerMetaclass):
         else:
             return False
 
-    def get_is_in_shopping_cart(self, obj):
-        """
-        Метод обработки параметра is_in_shopping_cart в корзине.
-        """
+    def get_is_in_shopping_cart(self, obj) -> bool:
         request = self.context.get('request')
         if request.user.is_anonymous:
             return False
@@ -68,7 +59,7 @@ class CommonCount(metaclass=serializers.SerializerMetaclass):
     """
     recipes_count = serializers.SerializerMethodField()
 
-    def get_recipes_count(self, obj):
+    def get_recipes_count(self, obj) -> int:
         return Recipe.objects.filter(author__id=obj.id).count()
 
 
@@ -77,9 +68,6 @@ class RegistrationSerializer(UserCreateSerializer, CommonSubscribed):
     Создание сериализатора модели пользователя.
     """
     class Meta:
-        """
-        Мета параметры сериализатора модели пользователя.
-        """
         model = User
         fields = ('id', 'username', 'email', 'first_name',
                   'last_name', 'is_subscribed', 'password')
@@ -198,9 +186,6 @@ class RecipeSerializerPost(serializers.ModelSerializer,
     image = Base64ImageField(max_length=None, use_url=False,)
 
     class Meta:
-        """
-        Мета параметры сериализатора модели рецептов.
-        """
         model = Recipe
         fields = ('id', 'author', 'name', 'image', 'text',
                   'ingredients', 'tags', 'cooking_time',
