@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'djoser',
     'colorfield',
     'django_filters',
-
 ]
 
 MIDDLEWARE = [
@@ -83,22 +82,21 @@ WSGI_APPLICATION = 'foodgram.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.posgresql_psycopg2',
-#         'NAME': BASE_DIR / 'BASE',
-#         'USER': os.getenv('DBUSER'),
-#         'PASSWORD': os.getenv('DBPASSWORD'),
-#         'HOST': 'localhost',
-#         'PORT': 5432
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DBENGINE', 'django.db.backends.posgresql'),
+        'NAME': 'foodgram',
+        'USER': os.getenv('DBUSER'),
+        'PASSWORD': os.getenv('DBPASSWORD'),
+        'HOST': 'localhost',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

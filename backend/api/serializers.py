@@ -55,7 +55,7 @@ class CommonRecipe(metaclass=serializers.SerializerMetaclass):
 
 class CommonCount(metaclass=serializers.SerializerMetaclass):
     """
-    Класс для опредения количества рецептов автора.
+    Класс для опредения количества рецептов одного автора.
     """
     recipes_count = serializers.SerializerMethodField()
 
@@ -114,9 +114,6 @@ class IngredientAmountRecipeSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(source='ingredient.id')
 
     class Meta:
-        """
-        Мета параметры сериализатора продуктов с количеством.
-        """
         model = IngredientRecipe
         fields = ('id', 'amount')
 
@@ -192,9 +189,6 @@ class RecipeSerializerPost(serializers.ModelSerializer,
                   'is_in_shopping_cart', 'is_favorited')
 
     def validate_ingredients(self, value):
-        """
-        Метод валидации продуктов в рецепте.
-        """
         ingredients_list = []
         ingredients = value
         for ingredient in ingredients:
@@ -238,9 +232,6 @@ class RecipeSerializerPost(serializers.ModelSerializer,
         return recipe
 
     def create(self, validated_data):
-        """
-        Метод создания рецептов.
-        """
         author = validated_data.get('author')
         tags_data = validated_data.pop('tags')
         name = validated_data.get('name')
@@ -290,18 +281,11 @@ class SubscriptionSerializer(serializers.ModelSerializer,
     recipes = serializers.SerializerMethodField()
 
     class Meta:
-        """
-        Мета параметры сериализатора списка подписок.
-        """
         model = User
         fields = ('email', 'id', 'username', 'first_name',
                   'last_name', 'is_subscribed', 'recipes', 'recipes_count')
 
     def get_recipes(self, obj):
-        """
-        Метод получения данных рецептов автора,
-        в зависимости от параметра recipes_limit.
-        """
         request = self.context.get('request')
         if request.GET.get('recipes_limit'):
             recipes_limit = int(request.GET.get('recipes_limit'))
