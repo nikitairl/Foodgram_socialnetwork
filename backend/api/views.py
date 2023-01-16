@@ -36,9 +36,6 @@ class UserSubscribeViewSet(viewsets.ModelViewSet):
         return get_list_or_404(User, following_uesr=self.request.user)
     
     def create(self, request, *args, **kwargs):
-        """
-        Метод создания подписки.
-        """
         user_id = self.kwargs.get('users_id')
         user = get_object_or_404(User, id=user_id)
         Subscribe.objects.create(
@@ -46,9 +43,6 @@ class UserSubscribeViewSet(viewsets.ModelViewSet):
         return Response(HTTPStatus.CREATED)
 
     def delete(self, request, *args, **kwargs):
-        """
-        Метод удаления подписок.
-        """
         author_id = self.kwargs['users_id']
         user_id = request.user.id
         subscribe = get_object_or_404(
@@ -57,18 +51,12 @@ class UserSubscribeViewSet(viewsets.ModelViewSet):
         return Response(HTTPStatus.NO_CONTENT)
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    Вьюсет обработки моделей тэгов.
-    """
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     pagination_class = None
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
-    """
-    Вьюсет обработки моделей рецептов.
-    """
     queryset = Recipe.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_class = RecipeFilters
@@ -85,9 +73,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 class IngredientViewSet(viewsets.ModelViewSet):
-    """
-    Вьюсет обработки модели продуктов.
-    """
     queryset = Ingredient.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = IngredientSerializer
@@ -97,9 +82,6 @@ class IngredientViewSet(viewsets.ModelViewSet):
 
 
 class BaseFavoriteCartViewSet(viewsets.ModelViewSet):
-    """
-    Базовый вьюсет обработки модели корзины и избранных рецептов.
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
@@ -131,9 +113,6 @@ class FavoriteViewSet(BaseFavoriteCartViewSet):
 
 
 class DownloadCart(viewsets.ModelViewSet):
-    """
-    Сохранение файла списка покупок.
-    """
     permission_classes = [permissions.IsAuthenticated]
 
     @staticmethod

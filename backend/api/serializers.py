@@ -26,8 +26,7 @@ class CommonSubscribed(metaclass=serializers.SerializerMetaclass):
 
 class CommonRecipe(metaclass=serializers.SerializerMetaclass):
     """
-    Класс для определения избранных
-    рецептов и продуктов в корзине.
+    Класс определения избранных рецептов
     """
     is_favorited = serializers.SerializerMethodField()
     is_in_shopping_cart = serializers.SerializerMethodField()
@@ -65,7 +64,7 @@ class CommonCount(metaclass=serializers.SerializerMetaclass):
 
 class RegistrationSerializer(UserCreateSerializer, CommonSubscribed):
     """
-    Создание сериализатора модели пользователя.
+    Создание сериализатора модели зарегестрированного пользователя.
     """
     class Meta:
         model = User
@@ -83,7 +82,7 @@ class RegistrationSerializer(UserCreateSerializer, CommonSubscribed):
 
 class IngredientSerializer(serializers.ModelSerializer):
     """
-    Создание сериализатора модели продуктов.
+    Сериализатор модели ингридиентов.
     """
     class Meta:
         model = Ingredient
@@ -94,7 +93,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 class IngredientAmountSerializer(serializers.ModelSerializer):
     """
-    Создание сериализатора модели продуктов в рецепте для чтения.
+    Сериализатор модели продуктов рецепта.
     """
     id = serializers.ReadOnlyField(source='ingredient.id')
     name = serializers.ReadOnlyField(source='ingredient.name')
@@ -109,7 +108,7 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
 
 class IngredientAmountRecipeSerializer(serializers.ModelSerializer):
     """
-    Создание сериализатора продуктов с количеством для записи.
+    Сериализатор количества ингридиента.
     """
     id = serializers.IntegerField(source='ingredient.id')
 
@@ -120,7 +119,7 @@ class IngredientAmountRecipeSerializer(serializers.ModelSerializer):
 
 class TagSerializer(serializers.ModelSerializer):
     """
-    Создание сериализатора модели тегов.
+    Сериализатор модели тегов.
     """
     class Meta:
         model = Tag
@@ -132,7 +131,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class FavoriteSerializer(serializers.Serializer):
     """
-    Создание сериализатора избранных рецептов.
+    Сериализатор избранных рецептов.
     """
     id = serializers.IntegerField()
     name = serializers.CharField()
@@ -142,7 +141,7 @@ class FavoriteSerializer(serializers.Serializer):
 
 class CartSerializer(serializers.Serializer):
     """
-    Создание сериализатора корзины.
+    Сериализатор корзины.
     """
     id = serializers.IntegerField()
     name = serializers.CharField()
@@ -172,7 +171,7 @@ class RecipeSerializer(serializers.ModelSerializer,
 class RecipeSerializerPost(serializers.ModelSerializer,
                            CommonRecipe):
     """
-    Сериализатор модели рецептов.
+    Сериализатор поста модели рецептов.
     """
     author = RegistrationSerializer(read_only=True)
     tags = serializers.PrimaryKeyRelatedField(
@@ -207,10 +206,6 @@ class RecipeSerializerPost(serializers.ModelSerializer,
         return value
 
     def add_tags_and_ingredients(self, tags_data, ingredients, recipe):
-        """
-        Метод выполнения общих функции
-        для создания и изменения рецептов.
-        """
         for tag_data in tags_data:
             recipe.tags.add(tag_data)
             recipe.save()
@@ -266,7 +261,7 @@ class RecipeSerializerPost(serializers.ModelSerializer,
 
 class RecipeMinifieldSerializer(serializers.ModelSerializer):
     """
-    Сериализатор для упрощенного отображения модели рецептов.
+    Сериализатор для отображения модели рецептов.
     """
     class Meta:
         model = Recipe
