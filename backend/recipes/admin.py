@@ -95,12 +95,8 @@ class RecipeAdmin(admin.ModelAdmin):
     list_filter = ('recipename', 'author', 'tags')
 
     def count_favorite(self, obj):
-        """
-        Метод для подсчета общего числа
-        добавлений этого рецепта в избранное.
-        """
         return Favorite.objects.filter(recipe=obj).count()
-    count_favorite.short_description = 'Число добавлении в избранное'
+    count_favorite.short_description = 'В избранном столько раз'
 
 
 admin.site.register(Cart, CartAdmin)
