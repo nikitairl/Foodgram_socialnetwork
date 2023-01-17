@@ -141,7 +141,7 @@ class Cart(models.Model):
 
     class Meta:
         verbose_name = 'Корзина'
-        verbose_name_plural = 'Корзины'
+        verbose_name_plural = 'Корзины пользователей'
         constraints = [
             models.UniqueConstraint(fields=['user', 'recipe'],
                                     name='unique_cart')
@@ -213,7 +213,7 @@ class Favorite(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
-        help_text='Выберите пользователя'
+        help_text='Избранный пользователь'
     )
     recipe = models.ForeignKey(
         Recipe,
