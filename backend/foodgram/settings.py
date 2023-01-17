@@ -15,7 +15,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Если True то используется база данных SQL. Используется для локального тестирования Django.
+# Если True то используется база данных SQL.
+# Используется для локального тестирования Django.
 SQL = True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
