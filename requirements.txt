@@ -1,13 +1,12 @@
 Django==3.2.16
-djangorestframework==3.13.1
-python-dotenv==0.19.2
-django-colorfield==0.6.3
-django-filter==21.1
+djangorestframework==3.14.0
+python-dotenv==0.21.0
+django-colorfield==0.8.0
+django-filter==22.1
 djoser==2.1.0
 django-extra-fields==0.3
 reportlab==3.6.12
 djangorestframework_simplejwt==5.0.0
-social-auth-app-django==5.0.0
 psycopg2-binary==2.8.6
 psycopg2==2.9.5
 django-cors-headers==3.13.0
