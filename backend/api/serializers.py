@@ -8,7 +8,7 @@ from users.models import User
 
 class CommonSubscribed(metaclass=serializers.SerializerMetaclass):
     """
-    Класс для определения подписки пользоватей на авторов рецептов.
+    Класс для определения подписки пользоватей на авторов.
     """
     is_subscribed = serializers.SerializerMethodField()
 
@@ -19,11 +19,12 @@ class CommonSubscribed(metaclass=serializers.SerializerMetaclass):
         if Subscribe.objects.filter(
                 user=request.user, following__id=obj.id).exists():
             return True
+        return False
 
 
-class CommonRecipe(metaclass=serializers.SerializerMetaclass):
+class FavoriteRecipes(metaclass=serializers.SerializerMetaclass):
     """
-    Класс определения избранных рецептов
+    Класс определения избранных рецептов.
     """
     is_favorited = serializers.SerializerMethodField()
     is_in_shopping_cart = serializers.SerializerMethodField()
@@ -35,6 +36,7 @@ class CommonRecipe(metaclass=serializers.SerializerMetaclass):
         if Favorite.objects.filter(user=request.user,
                                    recipe__id=obj.id).exists():
             return True
+        return False
 
     def get_is_in_shopping_cart(self, obj) -> bool:
         request = self.context.get('request')
@@ -43,15 +45,16 @@ class CommonRecipe(metaclass=serializers.SerializerMetaclass):
         if Cart.objects.filter(user=request.user,
                                recipe__id=obj.id).exists():
             return True
+        return False
 
 
-class CommonCount(metaclass=serializers.SerializerMetaclass):
+class RecipesCount(metaclass=serializers.SerializerMetaclass):
     """
     Класс для опредения количества рецептов одного автора.
     """
     recipes_count = serializers.SerializerMethodField()
 
-    def get_recipes_count(self, obj) -> int:
+    def count(self, obj) -> int:
         return Recipe.objects.filter(author__id=obj.id).count()
 
 
@@ -143,7 +146,7 @@ class CartSerializer(serializers.Serializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer,
-                       CommonRecipe):
+                       FavoriteRecipes):
     """
     Сериализатор модели рецептов.
     """
@@ -162,7 +165,7 @@ class RecipeSerializer(serializers.ModelSerializer,
 
 
 class RecipeSerializerPost(serializers.ModelSerializer,
-                           CommonRecipe):
+                           FavoriteRecipes):
     """
     Сериализатор поста модели рецептов.
     """
@@ -262,7 +265,7 @@ class RecipeMinifieldSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionSerializer(serializers.ModelSerializer,
-                             CommonSubscribed, CommonCount):
+                             CommonSubscribed, RecipesCount):
     """
     Сериализатор для списка подписок.
     """
