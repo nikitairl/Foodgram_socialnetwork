@@ -35,8 +35,6 @@ class CommonRecipe(metaclass=serializers.SerializerMetaclass):
         if Favorite.objects.filter(user=request.user,
                                    recipe__id=obj.id).exists():
             return True
-        else:
-            return False
 
     def get_is_in_shopping_cart(self, obj) -> bool:
         request = self.context.get('request')
@@ -45,8 +43,6 @@ class CommonRecipe(metaclass=serializers.SerializerMetaclass):
         if Cart.objects.filter(user=request.user,
                                recipe__id=obj.id).exists():
             return True
-        else:
-            return False
 
 
 class CommonCount(metaclass=serializers.SerializerMetaclass):
