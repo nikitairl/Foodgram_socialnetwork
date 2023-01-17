@@ -22,11 +22,12 @@ from .serializers import (CartSerializer, FavoriteSerializer,
                           SubscriptionSerializer, TagSerializer)
 
 
-
 class CreateUserView(UserViewSet):
     serializer_class = RegistrationSerializer
+
     def get_queryset(self):
         return User.objects.all()
+
 
 class UserSubscribeViewSet(viewsets.ModelViewSet):
     serializer_class = SubscriptionSerializer
@@ -34,7 +35,7 @@ class UserSubscribeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return get_list_or_404(User, following_uesr=self.request.user)
-    
+
     def create(self, request, *args, **kwargs):
         user_id = self.kwargs.get('users_id')
         user = get_object_or_404(User, id=user_id)
@@ -49,6 +50,7 @@ class UserSubscribeViewSet(viewsets.ModelViewSet):
             Subscribe, user__id=user_id, following__id=author_id)
         subscribe.delete()
         return Response(HTTPStatus.NO_CONTENT)
+
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Tag.objects.all()

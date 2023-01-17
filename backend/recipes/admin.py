@@ -103,16 +103,6 @@ class RecipeAdmin(admin.ModelAdmin):
     count_favorite.short_description = 'Число добавлении в избранное'
 
 
-class SubscribeAdmin(admin.ModelAdmin):
-    """
-    Параметры админ зоны.
-    """
-    list_display = ('user', 'following')
-    search_fields = ('user', )
-    empty_value_display = '-пусто-'
-    list_filter = ('user',)
-
-
 admin.site.register(Cart, CartAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
 admin.site.register(User, UserAdmin)

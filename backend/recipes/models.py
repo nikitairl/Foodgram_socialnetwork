@@ -16,10 +16,11 @@ class Ingredient(models.Model):
         verbose_name='Количество',
         help_text='Количество ингридиента',
     )
-    
+
     class Meta:
         verbose_name = 'Ингридиент'
         verbose_name_plural = 'Ингридиенты'
+
 
 class Tag(models.Model):
     tagname = models.CharField(
@@ -97,6 +98,7 @@ class Recipe(models.Model):
     def __str__(self):
         return self.recipename
 
+
 class Subscribe(models.Model):
     user = models.ForeignKey(
         User,
@@ -124,6 +126,7 @@ class Subscribe(models.Model):
     def __str__(self):
         return f'{self.user} {self.following}'
 
+
 class Cart(models.Model):
     user = models.ForeignKey(
         User,
@@ -149,6 +152,7 @@ class Cart(models.Model):
 
     def __str__(self):
         return f'{self.user} {self.recipe}'
+
 
 class IngredientRecipe(models.Model):
     ingredient = models.ForeignKey(
