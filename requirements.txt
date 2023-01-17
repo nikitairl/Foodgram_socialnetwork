@@ -1,9 +1,9 @@
 Django==3.2.16
-djangorestframework==3.14.0
+djangorestframework-simplejwt<5.0.0 and >=4.3.0
 python-dotenv==0.21.0
 django-colorfield==0.8.0
 django-filter==22.1
-djoser==2.1.0
+djoser
 django-extra-fields==0.3
 reportlab==3.6.12
 djangorestframework_simplejwt==5.0.0
