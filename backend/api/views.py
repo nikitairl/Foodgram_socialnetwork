@@ -36,14 +36,14 @@ class UserSubscribeViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return get_list_or_404(User, following_uesr=self.request.user)
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs) -> Response:
         user_id = self.kwargs.get('users_id')
         user = get_object_or_404(User, id=user_id)
         Subscribe.objects.create(
             user=request.user, following=user)
         return Response(HTTPStatus.CREATED)
 
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs) -> Response:
         author_id = self.kwargs['users_id']
         user_id = request.user.id
         subscribe = get_object_or_404(
@@ -85,14 +85,14 @@ class IngredientViewSet(viewsets.ModelViewSet):
 class BaseFavoriteCartViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs) -> Response:
         recipe_id = int(self.kwargs['recipes_id'])
         recipe = get_object_or_404(Recipe, id=recipe_id)
         self.model.objects.create(
             user=request.user, recipe=recipe)
         return Response(HTTPStatus.CREATED)
 
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs) -> Response:
         recipe_id = self.kwargs['recipes_id']
         user_id = request.user.id
         object = get_object_or_404(
@@ -117,7 +117,7 @@ class DownloadCart(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     @staticmethod
-    def canvas_method(dictionary):
+    def canvas_method(dictionary) -> HttpResponse:
         response = HttpResponse(content_type='application/pdf')
         response[
             'Content-Disposition'
@@ -148,7 +148,7 @@ class DownloadCart(viewsets.ModelViewSet):
         sheet.save()
         return response
 
-    def download(self, request):
+    def download(self, request) -> HttpResponse:
         result = IngredientRecipe.objects.filter(
             recipe__carts__user=request.user).values(
             'ingredient__name', 'ingredient__measurement_unit').order_by(
