@@ -202,8 +202,8 @@ class RecipeSerializerPost(serializers.ModelSerializer,
         return value
 
     def add_tags_and_ingredients(self, tags_data, ingredients, recipe):
-        for tag_data in tags_data:
-            recipe.tags.add(tag_data)
+        for data in tags_data:
+            recipe.tags.add(data)
             recipe.save()
         for ingredient in ingredients:
             if not IngredientRecipe.objects.filter(
@@ -241,9 +241,6 @@ class RecipeSerializerPost(serializers.ModelSerializer,
         return recipe
 
     def update(self, instance, validated_data):
-        """
-        Метод редактирования рецептов.
-        """
         tags_data = validated_data.pop('tags')
         ingredients = validated_data.pop('ingredientrecipes')
         TagRecipe.objects.filter(recipe=instance).delete()
