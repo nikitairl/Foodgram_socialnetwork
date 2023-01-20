@@ -6,10 +6,6 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 
 from django_filters.rest_framework import DjangoFilterBackend
 from djoser.views import UserViewSet
-from reportlab.lib.pagesizes import A4
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfgen import canvas
 from rest_framework import permissions, viewsets
 from rest_framework.response import Response
 
@@ -22,6 +18,7 @@ from .serializers import (CartSerializer, FavoriteSerializer,
                           IngredientSerializer, RecipeSerializer,
                           RecipeSerializerPost, RegistrationSerializer,
                           SubscriptionSerializer, TagSerializer)
+from .utils import canvas_method
 
 
 class CreateUserView(UserViewSet):
@@ -118,41 +115,9 @@ class FavoriteViewSet(BaseFavoriteCartViewSet):
 class DownloadCart(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
-    @staticmethod
-    def canvas_method(dictionary) -> HttpResponse:
-        response = HttpResponse(content_type='application/pdf')
-        response[
-            'Content-Disposition'
-        ] = 'attachment; filename = "Покупки.pdf"'
-        begin_position_x, begin_position_y = 40, 650
-        sheet = canvas.Canvas(response, pagesize=A4)
-        pdfmetrics.registerFont(TTFont('BebasNeue-Book',
-                                       'data/BebasNeue-Book.ttf'))
-        sheet.setFont('BebasNeue-Book', 50)
-        sheet.setTitle('Список покупок')
-        sheet.drawString(begin_position_x,
-                         begin_position_y + 40, 'Список покупок: ')
-        sheet.setFont('BebasNeue-Book', 24)
-        for number, item in enumerate(dictionary, start=1):
-            if begin_position_y < 100:
-                begin_position_y = 700
-                sheet.showPage()
-                sheet.setFont('BebasNeue-Book', 24)
-            sheet.drawString(
-                begin_position_x,
-                begin_position_y,
-                f'{number}.  {item["ingredient__name"]} - '
-                f'{item["ingredient_total"]}'
-                f' {item["ingredient__measurement_unit"]}'
-            )
-            begin_position_y -= 30
-        sheet.showPage()
-        sheet.save()
-        return response
-
     def download(self, request) -> HttpResponse:
         result = IngredientRecipe.objects.filter(
-            recipe__carts__user=request.user).values(
+            recipe__carts__user=request.user).values_list(
             'ingredient__name', 'ingredient__measurement_unit').order_by(
                 'ingredient__name').annotate(ingredient_total=Sum('amount'))
-        return self.canvas_method(result)
+        return canvas_method(result)

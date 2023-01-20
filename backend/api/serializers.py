@@ -120,7 +120,7 @@ class TagSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Tag
-        fields = '__all__'
+        fields = ('tagname', 'color', 'slug')
         extra_kwargs = {'name': {'required': False},
                         'slug': {'required': False},
                         'color': {'required': False}}
