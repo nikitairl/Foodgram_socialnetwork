@@ -22,13 +22,14 @@ Django, REST API, PosgreSQL, Docker, Nginx, Git.
 - [POST] /api/recipes/ - Создание рецепта.
 
 # Установка 
-- Шаблон наполнения env-файла: 
-DJANGO_SECRET_KEY = '' секретный ключ Django
-DBUSER = '' - логин для подключения к базе данных Postgres
-DBPASSWORD = '' пароль для подключения к базе данных Postgres
-POSTGRES_PASSWORD=postgres # пароль для подключения к БД (установите свой) 
-DBENGINE = 'django.db.backends.postgresql'
+Шаблон наполнения env-файла:
 
-- Создание образа:
-С помощью терминала перейдите в директорию расположения файла Dockerfile
+- DJANGO_SECRET_KEY = '' секретный ключ Django
+- DBUSER = '' - логин для подключения к базе данных Postgres
+- DBPASSWORD = '' пароль для подключения к базе данных Postgres
+- POSTGRES_PASSWORD=postgres # пароль для подключения к БД (установите свой) 
+- DBENGINE = 'django.db.backends.postgresql'
+
+Создание образа:
+- С помощью терминала перейдите в директорию расположения файла Dockerfile
 ```docker build -t foodgram .```
