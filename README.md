@@ -31,5 +31,5 @@ Django, REST API, PosgreSQL, Docker, Nginx, Git.
 - DBENGINE = 'django.db.backends.postgresql'
 
 Создание образа:
-- С помощью терминала перейдите в директорию расположения файла Dockerfile
+- Используя терминал перейдите в директорию расположения файла Dockerfile
 ```docker build -t foodgram .```
