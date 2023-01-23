@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-SQL = True
+SQL = False
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -15,7 +15,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '130.193.36.134', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
