@@ -17,11 +17,11 @@ services:
       - static_value:/app/backend/staticfiles/
       - media_value:/app/backend/media/
     env_file:
-      - ./.env
+      - ../backend/.env
 
   database:
-    env_files:
-      - .env
+    env_file:
+      - ../backend/.env
     image: postgres:13.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data
