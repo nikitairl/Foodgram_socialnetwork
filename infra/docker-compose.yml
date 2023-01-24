@@ -26,6 +26,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always
+    ports:
+      - '5432:5432'
+
 
   nginx:
     image: nginx:1.21.3-alpine
