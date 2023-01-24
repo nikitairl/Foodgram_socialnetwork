@@ -4,12 +4,8 @@ COPY ./ /app
 
 WORKDIR /app
 
-COPY requirements.txt /tmp/
+COPY backend/requirements.txt pwd
 
-RUN apt-get update \
-    && apt-get -y install libpq-dev gcc \
-    && pip install psycopg2
-    
-RUN pip3 install --upgrade pip && pip3 install -r /tmp/requirements.txt --no-cache-dir
+RUN pip3 install --upgrade pip && pip3 install -r /app/backend/requirements.txt --no-cache-dir
 
-CMD gunicorn foodgram.wsgi:application --bind 0.0.0.0:8000
+CMD gunicorn foodgram.wsgi:application --bind 0.0.0.0:8000 
