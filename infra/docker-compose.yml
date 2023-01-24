@@ -2,11 +2,11 @@ version: '3.3'
 services:
 
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: nikitairl/foodgram-front:latest
     volumes:
-      - ../frontend/:/app/result_build/
+      - result_build:/app/result_build/build/
+    depends_on:
+      - backend
 
   backend:
     image: nikitairl/foodgram:latest
