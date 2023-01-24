@@ -9,7 +9,7 @@ load_dotenv()
 
 SQL = False
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
@@ -77,15 +77,14 @@ if SQL:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': os.getenv('DBENGINE', 'django.db.backends.posgresql'),
-            'NAME': 'foodgram',
-            'USER': os.getenv('DBUSER'),
-            'PASSWORD': os.getenv('DBPASSWORD'),
+            'ENGINE': os.getenv('DBENGINE', 'django.db.backends.postgresql'),
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('POSTGRES_USER'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
             'HOST': 'localhost',
             'PORT': 5432,
         }
     }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
