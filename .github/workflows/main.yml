@@ -53,4 +53,4 @@ jobs:
         with:
           push: true
           tags: nikitairl/foodgram:latest
-          file: backend/Dockerfile 
+          file: backend/Dockerfile
