@@ -79,7 +79,7 @@ else:
             'NAME': os.getenv('DB_NAME'),
             'USER': os.getenv('POSTGRES_USER'),
             'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-            'HOST': 'localhost',
+            'HOST': '127.0.0.1',
             'PORT': 5432,
         }
     }
