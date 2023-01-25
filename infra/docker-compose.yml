@@ -8,7 +8,6 @@ services:
     depends_on:
       - backend
 
-
   backend:
     image: nikitairl/foodgram:latest
     restart: always
