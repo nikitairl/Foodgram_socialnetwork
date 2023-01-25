@@ -19,7 +19,7 @@ services:
     env_file:
       - ../backend/.env
 
-  database:
+  db:
     env_file:
       - ../backend/.env
     image: postgres:13.0-alpine
