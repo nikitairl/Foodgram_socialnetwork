@@ -26,6 +26,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: always
+    ports:
+      - '5432'
 
   nginx:
     image: nginx:1.21.3-alpine
@@ -37,8 +39,10 @@ services:
       - ../docs/:/usr/share/nginx/html/api/docs/
       - static_value:/var/html/static/
       - media_value:/var/html/media/
+      - redoc:/usr/share/nginx/html/api/docs/
     depends_on:
       - backend
+      - frontend
 
 volumes:
   result_build:
