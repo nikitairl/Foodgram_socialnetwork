@@ -12,7 +12,7 @@ services:
     image: nikitairl/foodgram:latest
     restart: always
     depends_on:
-      - dbq
+      - db
     volumes:
       - static_value:/app/backend/staticfiles/
       - media_value:/app/backend/media/
