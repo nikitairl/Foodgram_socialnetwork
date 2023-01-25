@@ -8,13 +8,14 @@ services:
     depends_on:
       - backend
 
+
   backend:
     image: nikitairl/foodgram:latest
     restart: always
     depends_on:
       - database
     volumes:
-      - static_value:/app/backend/static/
+      - static_value:/app/backend/staticfiles/
       - media_value:/app/backend/media/
     env_file:
       - ../backend/.env
@@ -24,10 +25,8 @@ services:
       - ../backend/.env
     image: postgres:13.0-alpine
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data/
     restart: always
-    ports:
-      - '5432'
 
   nginx:
     image: nginx:1.21.3-alpine
@@ -37,12 +36,10 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - result_build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
-      - static_value:/var/html/static/
+      - static_value:/var/html/staticfiles/
       - media_value:/var/html/media/
-      - redoc:/usr/share/nginx/html/api/docs/
     depends_on:
       - backend
-      - frontend
 
 volumes:
   result_build:
