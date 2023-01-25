@@ -12,7 +12,7 @@ services:
     image: nikitairl/foodgram:latest
     restart: always
     depends_on:
-      - db
+      - dbq
     volumes:
       - static_value:/app/backend/staticfiles/
       - media_value:/app/backend/media/
@@ -30,15 +30,16 @@ services:
   nginx:
     image: nginx:1.21.3-alpine
     ports:
-      - '80:80'
+      - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - result_build:/usr/share/nginx/html/
+      - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
-      - static_value:/var/html/staticfiles/
-      - media_value:/var/html/media/
+      - static_value:/var/html/static
+      - media_value:/var/html/media
     depends_on:
       - backend
+      - frontend
 
 volumes:
   result_build:
