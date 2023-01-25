@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '130.193.36.134', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', '130.193.36.134', 'localhost', '*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
