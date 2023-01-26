@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'djoser',
     'colorfield',
     'django_filters',
+    'foodgram'
 ]
 
 MIDDLEWARE = [
