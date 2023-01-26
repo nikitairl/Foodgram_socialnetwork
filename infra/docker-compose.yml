@@ -3,18 +3,11 @@ services:
 
   db:
     env_file:
-      - .env
+      - ../backend/.env
     image: postgres:13.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     restart: always
-
-  frontend:
-    image: nikitairl/foodgram-front:latest
-    volumes:
-      - result_build:/app/result_build/build/
-    depends_on:
-      - backend
 
   backend:
     image: nikitairl/foodgram:latest
@@ -26,6 +19,14 @@ services:
       - media_value:/app/backend/media/
     env_file:
       - ../backend/.env
+  
+  frontend:
+    image: nikitairl/foodgram-front:latest
+    volumes:
+      - result_build:/app/result_build/build/
+    depends_on:
+      - backend
+
 
   nginx:
     image: nginx:1.21.3-alpine
