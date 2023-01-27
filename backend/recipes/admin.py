@@ -45,11 +45,11 @@ class IngredientAdmin(admin.ModelAdmin):
     """
     Параметры админ зоны продуктов.
     """
-    list_display = ('ingredientname', 'amount')
-    search_fields = ('ingredientname', )
+    list_display = ('name', 'measurement_unit')
+    search_fields = ('name', )
     verbose_name = 'Ингридиент'
     empty_value_display = '-пусто-'
-    list_filter = ('ingredientname',)
+    list_filter = ('name',)
 
 
 class TagAdmin(admin.ModelAdmin):

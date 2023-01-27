@@ -13,7 +13,7 @@ class Command(BaseCommand):
             data = json.load(f)
             for i in data:
                 ingredient = Ingredient()
-                ingredient.ingredientname = i['name']
-                ingredient.amount = i['measurement_unit']
+                ingredient.name = i['name']
+                ingredient.measurement_unit = i['measurement_unit']
                 ingredient.save()
                 print(i['name'], i['measurement_unit'])

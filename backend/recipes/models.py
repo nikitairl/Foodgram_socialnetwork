@@ -7,12 +7,12 @@ from users.models import User
 
 
 class Ingredient(models.Model):
-    ingredientname = models.CharField(
+    name = models.CharField(
         max_length=150,
         verbose_name='Ингридиент',
         help_text='Используемый при приготовлении ингридиент',
     )
-    amount = models.CharField(
+    measurement_unit = models.CharField(
         max_length=200,
         verbose_name='Количество',
         help_text='Количество ингридиента',
@@ -50,7 +50,7 @@ class Tag(models.Model):
 
 
 class Recipe(models.Model):
-    recipename = models.CharField(
+    name = models.CharField(
         max_length=200,
         verbose_name='Название',
         help_text='Введите название рецепта',
@@ -67,7 +67,7 @@ class Recipe(models.Model):
         verbose_name='Описание',
         help_text='Описание рецепта',
     )
-    time = models.IntegerField(
+    cooking_time = models.IntegerField(
         validators=[MinValueValidator(1)],
         verbose_name='Время приготовления',
     )
@@ -97,7 +97,7 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
 
     def __str__(self):
-        return self.recipename
+        return self.name
 
 
 class Subscribe(models.Model):

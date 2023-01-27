@@ -31,7 +31,7 @@ class UserSubscribeViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return get_list_or_404(User, following_uesr=self.request.user)
+        return get_list_or_404(User, following_user=self.request.user)
 
     def create(self, request, *args, **kwargs) -> Response:
         user_id = self.kwargs.get('users_id')
