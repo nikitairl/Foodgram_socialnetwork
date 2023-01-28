@@ -121,7 +121,7 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = ('tagname', 'color', 'slug')
-        extra_kwargs = {'name': {'required': False},
+        extra_kwargs = {'tagname': {'required': False},
                         'slug': {'required': False},
                         'color': {'required': False}}
 
@@ -203,8 +203,8 @@ class RecipeSerializerPost(serializers.ModelSerializer,
         return value
 
     def add_tags_and_ingredients(self, tags_data, ingredients, recipe):
-        for data in tags_data:
-            recipe.tags.add(data)
+        for tag_data in tags_data:
+            recipe.tags.add(tag_data)
             recipe.save()
         for ingredient in ingredients:
             if not IngredientRecipe.objects.filter(
