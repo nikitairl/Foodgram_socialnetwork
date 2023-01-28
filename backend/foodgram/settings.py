@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '130.193.36.134', 'localhost', '*']
 
@@ -140,13 +140,20 @@ DJOSER = {
     }
 }
 
+STATICFILES_DIRS = [
+    '/backend/static',
+    '/usr/local/lib/python3.6/site-packages/django/contrib/admin/static',
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 
-MEDIA_URL = 'backend/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_URL = 'backend/staticfiles/'
+STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+print(f'BASE DIR {BASE_DIR}')
+print(f'STATIC_ROOT {STATIC_ROOT}')
