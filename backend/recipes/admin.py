@@ -88,11 +88,11 @@ class RecipeAdmin(admin.ModelAdmin):
     """
 
     inlines = (IngredientRecipeInline, TagRecipeInline,)
-    list_display = ('recipename', 'author', 'time',
+    list_display = ('name', 'author', 'cooking_time',
                     'id', 'count_favorite', 'pub_date')
-    search_fields = ('recipename', 'author', 'tags')
+    search_fields = ('name', 'author', 'tags')
     empty_value_display = '-пусто-'
-    list_filter = ('recipename', 'author', 'tags')
+    list_filter = ('name', 'author', 'tags')
 
     def count_favorite(self, obj):
         return Favorite.objects.filter(recipe=obj).count()

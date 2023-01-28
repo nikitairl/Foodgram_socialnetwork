@@ -31,16 +31,16 @@ class UserSubscribeViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return get_list_or_404(User, following_user=self.request.user)
+        return get_list_or_404(User, following__user=self.request.user)
 
-    def create(self, request, *args, **kwargs) -> Response:
+    def create(self, request, *args, **kwargs):
         user_id = self.kwargs.get('users_id')
         user = get_object_or_404(User, id=user_id)
         Subscribe.objects.create(
             user=request.user, following=user)
         return Response(HTTPStatus.CREATED)
 
-    def delete(self, request, *args, **kwargs) -> Response:
+    def delete(self, request, *args, **kwargs):
         author_id = self.kwargs['users_id']
         user_id = request.user.id
         subscribe = get_object_or_404(
