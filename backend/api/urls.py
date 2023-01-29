@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 from .views import (CartViewSet, CreateUserView, DownloadCart, FavoriteViewSet,
                     IngredientViewSet, RecipeViewSet, TagViewSet,
-                    UserSubscribeViewSet)
+                    SubscribeViewSet)
 
 app_name = 'api'
 router = DefaultRouter()
@@ -18,12 +18,12 @@ router.register(r'ingredients', IngredientViewSet, basename='ingredients')
 
 urlpatterns = [
     path('users/subscriptions/',
-         UserSubscribeViewSet.as_view({'get': 'list'}), name='subscriptions'),
+         SubscribeViewSet.as_view({'get': 'list'}), name='subscriptions'),
     path('recipes/download_shopping_cart/',
          DownloadCart.as_view({'get': 'download'}), name='download'),
     path('users/<users_id>/subscribe/',
-         UserSubscribeViewSet.as_view({'post': 'create',
-                                       'delete': 'delete'}), name='subscribe'),
+         SubscribeViewSet.as_view({'post': 'create',
+                                   'delete': 'delete'}), name='subscribe'),
     path('recipes/<recipes_id>/favorite/',
          FavoriteViewSet.as_view({'post': 'create',
                                   'delete': 'delete'}), name='favorite'),
@@ -31,6 +31,5 @@ urlpatterns = [
          CartViewSet.as_view({'post': 'create',
                               'delete': 'delete'}), name='cart'),
     path('', include(router.urls)),
-    path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 ]

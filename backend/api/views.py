@@ -26,7 +26,7 @@ class CreateUserView(UserViewSet):
         return User.objects.all()
 
 
-class UserSubscribeViewSet(viewsets.ModelViewSet):
+class SubscribeViewSet(viewsets.ModelViewSet):
     serializer_class = SubscriptionSerializer
     permission_classes = [permissions.IsAuthenticated]
 
