@@ -27,7 +27,7 @@ class Ingredient(models.Model):
 
 
 class Tag(models.Model):
-    tagname = models.CharField(
+    tag = models.CharField(
         max_length=150,
         verbose_name='Тег',
         help_text='Название тега',

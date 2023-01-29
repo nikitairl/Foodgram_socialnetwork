@@ -56,10 +56,10 @@ class TagAdmin(admin.ModelAdmin):
     """
     Параметры админ зоны тэгов.
     """
-    list_display = ('tagname', 'color', 'slug')
-    search_fields = ('tagname', )
+    list_display = ('name', 'color', 'slug')
+    search_fields = ('name', )
     empty_value_display = '-пусто-'
-    list_filter = ('tagname',)
+    list_filter = ('name',)
 
 
 class CartAdmin(admin.ModelAdmin):
