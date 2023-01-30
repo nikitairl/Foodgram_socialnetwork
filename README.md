@@ -1,6 +1,8 @@
 # github/Nikitairl
 ## _FOODGRAM - социальная сеть для тех кто любит готовить._
 
+http://130.193.36.134/recipes
+
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
