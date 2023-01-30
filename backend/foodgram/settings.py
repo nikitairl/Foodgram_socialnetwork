@@ -7,7 +7,7 @@ load_dotenv()
 
 SQL = False
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
@@ -154,6 +154,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-print(f'BASE DIR {BASE_DIR}')
-print(f'STATIC_ROOT {STATIC_ROOT}')
