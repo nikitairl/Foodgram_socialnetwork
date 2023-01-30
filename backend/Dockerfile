@@ -2,7 +2,7 @@ FROM python:3.7-slim
 
 COPY ./ /app
 
-WORKDIR /app
+WORKDIR /app/backend
 
 COPY backend/requirements.txt pwd
 
