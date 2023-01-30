@@ -8,7 +8,6 @@ from reportlab.pdfgen import canvas
 BEGIN_POSITION_X = 40
 
 
-@staticmethod
 def canvas_method(dictionary) -> HttpResponse:
     begin_position_y = 650
     response = HttpResponse(content_type='application/pdf')
