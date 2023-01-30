@@ -8,18 +8,22 @@ from reportlab.pdfgen import canvas
 BEGIN_POSITION_X = 40
 
 
-def canvas_method(dictionary) -> HttpResponse:
-    begin_position_y = 650
+@staticmethod
+def canvas_method(dictionary):
+    """
+    Метод сохранения списка покупок в формате PDF.
+    """
     response = HttpResponse(content_type='application/pdf')
     response[
-        'Content-Disposition'
-    ] = 'attachment; filename = "Покупки.pdf"'
+        'Content-Disposition'] = 'attachment; \
+    filename = "shopping_cart.pdf"'
+    begin_position_x, begin_position_y = 40, 650
     sheet = canvas.Canvas(response, pagesize=A4)
     pdfmetrics.registerFont(TTFont('BebasNeue-Book',
                                    'data/BebasNeue-Book.ttf'))
     sheet.setFont('BebasNeue-Book', 50)
     sheet.setTitle('Список покупок')
-    sheet.drawString(BEGIN_POSITION_X,
+    sheet.drawString(begin_position_x,
                      begin_position_y + 40, 'Список покупок: ')
     sheet.setFont('BebasNeue-Book', 24)
     for number, item in enumerate(dictionary, start=1):
@@ -28,7 +32,7 @@ def canvas_method(dictionary) -> HttpResponse:
             sheet.showPage()
             sheet.setFont('BebasNeue-Book', 24)
         sheet.drawString(
-            BEGIN_POSITION_X,
+            begin_position_x,
             begin_position_y,
             f'{number}.  {item["ingredient__name"]} - '
             f'{item["ingredient_total"]}'
