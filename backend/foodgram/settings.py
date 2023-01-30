@@ -128,11 +128,6 @@ DJOSER = {
     }
 }
 
-STATICFILES_DIRS = [
-    '/backend/static',
-    '/usr/local/lib/python3.6/site-packages/django/contrib/admin/static',
-]
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
