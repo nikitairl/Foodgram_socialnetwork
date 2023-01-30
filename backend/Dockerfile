@@ -4,7 +4,7 @@ COPY ./ /app/backend
 
 WORKDIR /app/backend
 
-COPY requirements.txt pwd
+COPY backend/requirements.txt pwd
 
 RUN pip3 install --upgrade pip && pip3 install -r requirements.txt --no-cache-dir
 
