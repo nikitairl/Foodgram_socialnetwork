@@ -7,7 +7,7 @@ load_dotenv()
 
 SQL = False
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
@@ -140,10 +140,6 @@ DJOSER = {
     }
 }
 
-STATICFILES_DIRS = [
-    '/backend/static',
-    '/usr/local/lib/python3.6/site-packages/django/contrib/admin/static',
-]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -153,4 +149,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/staticfiles/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR.join('staticfiles')
