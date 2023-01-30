@@ -8,7 +8,6 @@ from reportlab.pdfgen import canvas
 BEGIN_POSITION_X = 40
 
 
-@staticmethod
 def canvas_method(dictionary):
     """
     Метод сохранения списка покупок в формате PDF.
