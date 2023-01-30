@@ -1,33 +1,29 @@
+"""
+Настройка админ зоны проекта Foodgram.
+"""
+
 from django.contrib import admin
 
 from users.models import User
-from .models import (Cart, Favorite, Ingredient, IngredientRecipe, Recipe,
-                     Subscribe, Tag, TagRecipe)
-
-
-class TagRecipeInline(admin.TabularInline):
-    """
-    Настройка тегов в админке
-    """
-    model = TagRecipe
-    extra = 0
-
-
-class SubscribeAdmin(admin.ModelAdmin):
-    """
-    Параметры админ зоны.
-    """
-    list_display = ('user', 'following')
-    search_fields = ('user', )
-    empty_value_display = '-пусто-'
-    list_filter = ('user',)
+from .models import (Cart, Favorite, Subscribe, Ingredient, IngredientRecipe,
+                     Recipe, Tag, TagRecipe)
 
 
 class IngredientRecipeInline(admin.TabularInline):
     """
-    Настройка модели ингридиентов в админке
+    Параметры настроек админ зоны
+    модели ингредиентов в рецепте.
     """
     model = IngredientRecipe
+    extra = 0
+
+
+class TagRecipeInline(admin.TabularInline):
+    """
+    Параметры настроек админ зоны
+    модели тэгов рецепта.
+    """
+    model = TagRecipe
     extra = 0
 
 
@@ -47,7 +43,6 @@ class IngredientAdmin(admin.ModelAdmin):
     """
     list_display = ('name', 'measurement_unit')
     search_fields = ('name', )
-    verbose_name = 'Ингридиент'
     empty_value_display = '-пусто-'
     list_filter = ('name',)
 
@@ -95,8 +90,22 @@ class RecipeAdmin(admin.ModelAdmin):
     list_filter = ('name', 'author', 'tags')
 
     def count_favorite(self, obj):
+        """
+        Метод для подсчета общего числа
+        добавлений этого рецепта в избранное.
+        """
         return Favorite.objects.filter(recipe=obj).count()
-    count_favorite.short_description = 'В избранном столько раз'
+    count_favorite.short_description = 'Число добавлении в избранное'
+
+
+class SubscribeAdmin(admin.ModelAdmin):
+    """
+    Параметры админ зоны.
+    """
+    list_display = ('user', 'following')
+    search_fields = ('user', )
+    empty_value_display = '-пусто-'
+    list_filter = ('user',)
 
 
 admin.site.register(Cart, CartAdmin)
