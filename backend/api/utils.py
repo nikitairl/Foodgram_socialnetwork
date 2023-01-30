@@ -9,9 +9,6 @@ BEGIN_POSITION_X = 40
 
 
 def canvas_method(dictionary):
-    """
-    Метод сохранения списка покупок в формате PDF.
-    """
     response = HttpResponse(content_type='application/pdf')
     response[
         'Content-Disposition'] = 'attachment; \
