@@ -42,5 +42,5 @@ Django, REST API, PosgreSQL, Docker, Nginx, Git.
 - DBENGINE = 'django.db.backends.postgresql'
 
 Создание образа:
-- Используя терминал перейдите в директорию расположения файла Dockerfile
-```docker build -t foodgram .```
+Убедитесь, что вы находитесь в той же директории, где сохранён docker-compose.yaml и запустите docker-compose командой docker-compose up.
+Проект работает с базой данных Postgres.
